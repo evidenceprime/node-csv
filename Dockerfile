@@ -1,6 +1,7 @@
 FROM node:18.15.0-bullseye-slim
 
 RUN apt-get update
+RUN apt-get install -y git
 
 RUN mkdir /home/build
 WORKDIR /home/build
