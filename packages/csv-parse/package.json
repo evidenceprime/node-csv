@@ -1,6 +1,6 @@
 {
-  "version": "5.3.6",
-  "name": "csv-parse",
+  "version": "5.3.6-ep1",
+  "name": "@ep/csv-parse",
   "description": "CSV parsing implementing the Node.js `stream.Transform` API",
   "keywords": [
     "csv",
@@ -60,11 +60,14 @@
     }
   },
   "devDependencies": {
+    "@babel/core": "^7.21.3",
+    "@babel/preset-env": "^7.20.2",
+    "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-eslint": "^9.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@types/mocha": "^10.0.0",
     "@types/node": "^18.11.9",
-    "coffeelint": "^2.1.0",
+    "coffeelint": "^1.4.1",
     "coffeescript": "^2.7.0",
     "csv-generate": "^4.2.2",
     "csv-spectrum": "^1.0.0",
@@ -73,7 +76,7 @@
     "mocha": "^10.1.0",
     "pad": "^3.2.0",
     "rollup": "^3.2.5",
-    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-builtins": "^2.0.0",
     "rollup-plugin-node-globals": "^1.4.0",
     "should": "^13.2.3",
     "stream-transform": "^3.2.2",

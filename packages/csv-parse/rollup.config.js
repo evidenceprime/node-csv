@@ -1,11 +1,11 @@
-
-import { nodeResolve } from '@rollup/plugin-node-resolve';
+import {babel} from '@rollup/plugin-babel';
+import {nodeResolve} from '@rollup/plugin-node-resolve';
 import globals from 'rollup-plugin-node-globals';
 import builtins from 'rollup-plugin-node-builtins';
 import eslint from '@rollup/plugin-eslint';
 
 export default [{
-  onwarn: function(warning, rollupWarn) {
+  onwarn: function (warning, rollupWarn) {
     // Not much we can do, Node.js `readable-stream/readable.js` and
     // `readable-stream/duplex.js` from `rollup-plugin-node-builtins` raise this
     // issue.
@@ -29,9 +29,14 @@ export default [{
       name: 'csv_parse'
     },
   ],
-  plugins: [eslint({
-    fix: true,
-  }), globals(), builtins(), nodeResolve()],
+  plugins: [
+    eslint({
+      fix: true,
+    }),
+    globals(),
+    builtins(),
+    nodeResolve()
+  ],
 }, {
   input: 'lib/index.js',
   output: [
@@ -40,11 +45,17 @@ export default [{
       format: 'cjs'
     },
   ],
-  plugins: [eslint({
-    fix: true,
-  }), nodeResolve()],
+  plugins: [
+    eslint({
+      fix: true,
+    }),
+    babel({
+      babelHelpers: 'bundled'
+    }),
+    nodeResolve()
+  ],
 }, {
-  onwarn: function(warning, rollupWarn) {
+  onwarn: function (warning, rollupWarn) {
     if (warning.code === 'CIRCULAR_DEPENDENCY') return;
     rollupWarn(warning);
   },
@@ -65,9 +76,14 @@ export default [{
       name: 'csv_parse_sync'
     },
   ],
-  plugins: [eslint({
-    fix: true,
-  }), globals(), builtins(), nodeResolve()],
+  plugins: [
+    eslint({
+      fix: true,
+    }),
+    globals(),
+    builtins(),
+    nodeResolve()
+  ],
 }, {
   input: 'lib/sync.js',
   output: [
@@ -76,7 +92,13 @@ export default [{
       format: 'cjs'
     },
   ],
-  plugins: [eslint({
-    fix: true,
-  }), nodeResolve()],
+  plugins: [
+    eslint({
+      fix: true,
+    }),
+    babel({
+      babelHelpers: 'bundled'
+    }),
+    nodeResolve()
+  ],
 }];
