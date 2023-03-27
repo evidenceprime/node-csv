@@ -2,9 +2,11 @@
 node_modules
 !.eslintrc
 !.github
+!.dockerignore
 !.gitignore
 !.husky
 !.babelrc
+!.npmrc.tpl
 lerna-debug.log
 yarn-error.log
 package-lock.json
