@@ -1,4 +1,4 @@
-@ep:registry=https://pkgs.dev.azure.com/evidence-prime/GRADEpro/_packaging/npm-02/npm/registry/
+@evidenceprime:registry=https://pkgs.dev.azure.com/evidence-prime/GRADEpro/_packaging/npm-02/npm/registry/
 
 always-auth=true
 
