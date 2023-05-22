@@ -1,6 +1,6 @@
 {
-  "version": "5.3.6-ep1",
-  "name": "@ep/csv-parse",
+  "version": "5.3.6-ep2",
+  "name": "@evidenceprime/csv-parse",
   "description": "CSV parsing implementing the Node.js `stream.Transform` API",
   "keywords": [
     "csv",
@@ -103,7 +103,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/adaltas/node-csv.git",
+    "url": "https://github.com/evidenceprime/node-csv.git",
     "directory": "packages/csv-parse"
   },
   "scripts": {
