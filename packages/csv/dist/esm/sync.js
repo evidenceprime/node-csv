@@ -3295,6 +3295,26 @@ BufferList.prototype.concat = function (n) {
 };
 
 // Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 var isBufferEncoding = Buffer.isEncoding
   || function(encoding) {
        switch (encoding && encoding.toLowerCase()) {
@@ -4381,6 +4401,9 @@ function indexOf(xs, x) {
 }
 
 // A bit simpler than readable streams.
+// Implement an async ._write(chunk, encoding, cb), and it'll handle all
+// the drain event emission and buffering.
+
 Writable.WritableState = WritableState;
 inherits$1(Writable, EventEmitter);
 
@@ -4892,6 +4915,47 @@ function onEndNT(self) {
 }
 
 // a transform stream is a readable/writable stream where you do
+// something with the data.  Sometimes it's called a "filter",
+// but that's not a great name for it, since that implies a thing where
+// some bits pass through, and others are simply ignored.  (That would
+// be a valid example of a transform, of course.)
+//
+// While the output is causally related to the input, it's not a
+// necessarily symmetric or synchronous transformation.  For example,
+// a zlib stream might take multiple plain-text writes(), and then
+// emit a single compressed chunk some time in the future.
+//
+// Here's how this works:
+//
+// The Transform stream has all the aspects of the readable and writable
+// stream classes.  When you write(chunk), that calls _write(chunk,cb)
+// internally, and returns false if there's a lot of pending writes
+// buffered up.  When you call read(), that calls _read(n) until
+// there's enough pending readable data buffered up.
+//
+// In a transform stream, the written data is placed in a buffer.  When
+// _read(n) is called, it transforms the queued up data, calling the
+// buffered _write cb's as it consumes chunks.  If consuming a single
+// written chunk would result in multiple output chunks, then the first
+// outputted bit calls the readcb, and subsequent chunks just go into
+// the read buffer, and will cause it to emit 'readable' if necessary.
+//
+// This way, back-pressure is actually determined by the reading side,
+// since _read has to be called to start processing a new chunk.  However,
+// a pathological inflate type of transform can cause excessive buffering
+// here.  For example, imagine a stream where every byte of input is
+// interpreted as an integer from 0-255, and then results in that many
+// bytes of output.  Writing the 4 bytes {ff,ff,ff,ff} would result in
+// 1kb of data being output.  In this case, you could write a very small
+// amount of input, and end up with a very large amount of output.  In
+// such a pathological inflating mechanism, there'd be no way to tell
+// the system to stop doing the transform.  A single 4MB write could
+// cause the system to run out of memory.
+//
+// However, even in such a pathological case, only a single written chunk
+// would be consumed, and then the rest would wait (un-transformed) until
+// the results of the previous transformed chunk were consumed.
+
 inherits$1(Transform, Duplex);
 
 function TransformState(stream) {
@@ -5658,6 +5722,16 @@ const normalize_options$1 = function(opts){
       ], options);
     }
   }
+  // Normalize option `comment_no_infix`
+  if(options.comment_no_infix === undefined || options.comment_no_infix === null || options.comment_no_infix === false){
+    options.comment_no_infix = false;
+  }else if(options.comment_no_infix !== true){
+    throw new CsvError$1('CSV_INVALID_OPTION_COMMENT', [
+      'Invalid option comment_no_infix:',
+      'value must be a boolean,',
+      `got ${JSON.stringify(options.comment_no_infix)}`
+    ], options);
+  }
   // Normalize option `delimiter`
   const delimiter_json = JSON.stringify(options.delimiter);
   if(!Array.isArray(options.delimiter)) options.delimiter = [options.delimiter];
@@ -6019,7 +6093,7 @@ const transform$1 = function(original_options = {}) {
     },
     // Central parser implementation
     parse: function(nextBuf, end, push, close){
-      const {bom, encoding, from_line, ltrim, max_record_size,raw, relax_quotes, rtrim, skip_empty_lines, to, to_line} = this.options;
+      const {bom, comment_no_infix, encoding, from_line, ltrim, max_record_size,raw, relax_quotes, rtrim, skip_empty_lines, to, to_line} = this.options;
       let {comment, escape, quote, record_delimiter} = this.options;
       const {bomSkipped, previousBuf, rawBuffer, escapeIsQuote} = this.state;
       let buf;
@@ -6218,7 +6292,7 @@ const transform$1 = function(original_options = {}) {
               continue;
             }
             const commentCount = comment === null ? 0 : this.__compareBytes(comment, buf, pos, chr);
-            if(commentCount !== 0){
+            if(commentCount !== 0 && (comment_no_infix === false || this.state.field.length === 0)){
               this.state.commenting = true;
               continue;
             }
@@ -7175,8 +7249,27 @@ const stringifier = function(options, state, info){
             }
           });
           quotedMatch = quotedMatch && quotedMatch.length > 0;
-          if (escape_formulas && ['=', '+', '-', '@', '\t', '\r'].includes(value[0])) {
-            value = `'${value}`;
+          // See https://github.com/adaltas/node-csv/pull/387
+          // More about CSV injection or formula injection, when websites embed
+          // untrusted input inside CSV files:
+          // https://owasp.org/www-community/attacks/CSV_Injection
+          // http://georgemauer.net/2017/10/07/csv-injection.html
+          // Apple Numbers unicode normalization is empirical from testing
+          if (escape_formulas) {
+            switch (value[0]) {
+            case '=':
+            case '+':
+            case '-':
+            case '@':
+            case '\t':
+            case '\r':
+            case '\uFF1D': // Unicode '='
+            case '\uFF0B': // Unicode '+'
+            case '\uFF0D': // Unicode '-'
+            case '\uFF20': // Unicode '@'
+              value = `'${value}`;
+              break;
+            }
           }
           const shouldQuote = containsQuote === true || containsdelimiter || containsRecordDelimiter || quoted || quotedString || quotedMatch;
           if(shouldQuote === true && containsEscape === true){

@@ -3,6 +3,77 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.3](https://github.com/adaltas/node-csv/compare/csv@6.3.2...csv@6.3.3) (2023-08-25)
+
+
+### Bug Fixes
+
+* **csv-demo-ts-cjs-node16:** upgrade module definition after latest typescript ([87fe919](https://github.com/adaltas/node-csv/commit/87fe91996fb2a8895c252177fca4f0cb59a518f9))
+
+
+
+## [6.3.2](https://github.com/adaltas/node-csv/compare/csv@6.3.1...csv@6.3.2) (2023-08-24)
+
+
+### Bug Fixes
+
+* commonjs types, run tsc and lint to validate changes ([#397](https://github.com/adaltas/node-csv/issues/397)) ([e6870fe](https://github.com/adaltas/node-csv/commit/e6870fe272c119e273196522c9771d12ff8b2a35))
+
+
+
+## [6.3.1](https://github.com/adaltas/node-csv/compare/csv@6.3.0...csv@6.3.1) (2023-05-26)
+
+**Note:** Version bump only for package csv
+
+
+
+
+
+## [6.3.0](https://github.com/adaltas/node-csv/compare/csv@6.2.12...csv@6.3.0) (2023-05-09)
+
+
+### Features
+
+* add unicode chars to formula escape ([#387](https://github.com/adaltas/node-csv/issues/387)) ([1fc177c](https://github.com/adaltas/node-csv/commit/1fc177c605e8a88e403539806890695a6ba72dec))
+
+
+
+## [6.2.12](https://github.com/adaltas/node-csv/compare/csv@6.2.11...csv@6.2.12) (2023-05-04)
+
+**Note:** Version bump only for package csv
+
+
+
+
+
+## [6.2.11](https://github.com/adaltas/node-csv/compare/csv@6.2.10...csv@6.2.11) (2023-04-30)
+
+
+### Bug Fixes
+
+* **csv:** fixed CJS types under modern `modernResolution` options ([#388](https://github.com/adaltas/node-csv/issues/388)) ([54d03e4](https://github.com/adaltas/node-csv/commit/54d03e4779033ef7d574dffa98a7c3ce93da345d))
+* **csv:** remove ts files in cjs dist ([d0d1089](https://github.com/adaltas/node-csv/commit/d0d1089c3ef9053c9adb9a9747ce11d5ea5cfe49))
+
+
+
+## [6.2.10](https://github.com/adaltas/node-csv/compare/csv@6.2.8...csv@6.2.10) (2023-04-16)
+
+
+### Bug Fixes
+
+* uncaught errors with large stream chunks (fix [#386](https://github.com/adaltas/node-csv/issues/386)) ([1d500ed](https://github.com/adaltas/node-csv/commit/1d500edf38ba06fc80409974e08c37c6a40f27a1))
+
+
+
+## [6.2.9](https://github.com/adaltas/node-csv/compare/csv@6.2.8...csv@6.2.9) (2023-04-16)
+
+
+### Bug Fixes
+
+* uncaught errors with large stream chunks (fix [#386](https://github.com/adaltas/node-csv/issues/386)) ([1d500ed](https://github.com/adaltas/node-csv/commit/1d500edf38ba06fc80409974e08c37c6a40f27a1))
+
+
+
 ## [6.2.8](https://github.com/adaltas/node-csv/compare/csv@6.2.7...csv@6.2.8) (2023-03-03)
 
 **Note:** Version bump only for package csv

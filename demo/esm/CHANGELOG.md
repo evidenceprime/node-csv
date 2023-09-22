@@ -3,6 +3,70 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.25](https://github.com/adaltas/node-csv/compare/csv-demo-esm@0.0.24...csv-demo-esm@0.0.25) (2023-08-25)
+
+**Note:** Version bump only for package csv-demo-esm
+
+
+
+
+
+## [0.0.24](https://github.com/adaltas/node-csv/compare/csv-demo-esm@0.0.23...csv-demo-esm@0.0.24) (2023-08-24)
+
+**Note:** Version bump only for package csv-demo-esm
+
+
+
+
+
+## [0.0.23](https://github.com/adaltas/node-csv/compare/csv-demo-esm@0.0.22...csv-demo-esm@0.0.23) (2023-05-26)
+
+**Note:** Version bump only for package csv-demo-esm
+
+
+
+
+
+## [0.0.22](https://github.com/adaltas/node-csv/compare/csv-demo-esm@0.0.21...csv-demo-esm@0.0.22) (2023-05-09)
+
+**Note:** Version bump only for package csv-demo-esm
+
+
+
+
+
+## [0.0.21](https://github.com/adaltas/node-csv/compare/csv-demo-esm@0.0.20...csv-demo-esm@0.0.21) (2023-05-04)
+
+**Note:** Version bump only for package csv-demo-esm
+
+
+
+
+
+## [0.0.20](https://github.com/adaltas/node-csv/compare/csv-demo-esm@0.0.19...csv-demo-esm@0.0.20) (2023-04-30)
+
+**Note:** Version bump only for package csv-demo-esm
+
+
+
+
+
+## [0.0.19](https://github.com/adaltas/node-csv/compare/csv-demo-esm@0.0.17...csv-demo-esm@0.0.19) (2023-04-16)
+
+**Note:** Version bump only for package csv-demo-esm
+
+
+
+
+
+## [0.0.18](https://github.com/adaltas/node-csv/compare/csv-demo-esm@0.0.17...csv-demo-esm@0.0.18) (2023-04-16)
+
+**Note:** Version bump only for package csv-demo-esm
+
+
+
+
+
 ## [0.0.17](https://github.com/adaltas/node-csv/compare/csv-demo-esm@0.0.16...csv-demo-esm@0.0.17) (2023-03-03)
 
 **Note:** Version bump only for package csv-demo-esm

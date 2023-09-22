@@ -28,7 +28,8 @@ describe('API Types', () => {
       const options: Options = parser.options
       const keys: string[] = Object.keys(options)
       keys.sort().should.eql([
-        'bom', 'cast', 'cast_date', 'cast_first_line_to_header', 'cast_function', 'columns', 'comment', 'delimiter',
+        'bom', 'cast', 'cast_date', 'cast_first_line_to_header',
+        'cast_function', 'columns', 'comment', 'comment_no_infix', 'delimiter',
         'encoding', 'escape', 'from', 'from_line', 'group_columns_by_name',
         'ignore_last_delimiters', 'info', 'ltrim', 'max_record_size', 'objname',
         'on_record', 'on_skip', 'quote', 'raw', 'record_delimiter',
@@ -88,7 +89,7 @@ describe('API Types', () => {
   describe('Info', () => {
     
     const fakeinfo = {
-      bytes: 1,
+      bytes: 1, columns: true,
       comment_lines: 1, empty_lines: 1,
       invalid_field_length: 1, lines: 1, records: 1
     }
@@ -127,6 +128,27 @@ describe('API Types', () => {
       const info: Info = fakeinfo
       const invalid_field_length: number = info.invalid_field_length
       invalid_field_length
+    })
+
+    it('columns may be a boolean or an array', () => {
+      // Boolean
+      const infoBoolean: Info = {
+        bytes: 1, columns: true,
+        comment_lines: 1, empty_lines: 1,
+        invalid_field_length: 1, lines: 1, records: 1
+      }
+      // Array with name = <string>
+      const infoName: Info = {
+        bytes: 1, columns: [{name: 'a column'}],
+        comment_lines: 1, empty_lines: 1,
+        invalid_field_length: 1, lines: 1, records: 1
+      }
+      // Array with disabled = true
+      const infoDisabled: Info = {
+        bytes: 1, columns: [{disabled: true}],
+        comment_lines: 1, empty_lines: 1,
+        invalid_field_length: 1, lines: 1, records: 1
+      }
     })
     
   })

@@ -3,6 +3,72 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.16](https://github.com/adaltas/node-csv/compare/csv-issues-esm@0.0.15...csv-issues-esm@0.0.16) (2023-08-25)
+
+**Note:** Version bump only for package csv-issues-esm
+
+
+
+
+
+## [0.0.15](https://github.com/adaltas/node-csv/compare/csv-issues-esm@0.0.14...csv-issues-esm@0.0.15) (2023-08-24)
+
+**Note:** Version bump only for package csv-issues-esm
+
+
+
+
+
+## [0.0.14](https://github.com/adaltas/node-csv/compare/csv-issues-esm@0.0.13...csv-issues-esm@0.0.14) (2023-05-26)
+
+**Note:** Version bump only for package csv-issues-esm
+
+
+
+
+
+## [0.0.13](https://github.com/adaltas/node-csv/compare/csv-issues-esm@0.0.12...csv-issues-esm@0.0.13) (2023-05-09)
+
+**Note:** Version bump only for package csv-issues-esm
+
+
+
+
+
+## [0.0.12](https://github.com/adaltas/node-csv/compare/csv-issues-esm@0.0.11...csv-issues-esm@0.0.12) (2023-05-04)
+
+**Note:** Version bump only for package csv-issues-esm
+
+
+
+
+
+## [0.0.11](https://github.com/adaltas/node-csv/compare/csv-issues-esm@0.0.10...csv-issues-esm@0.0.11) (2023-04-30)
+
+**Note:** Version bump only for package csv-issues-esm
+
+
+
+
+
+## [0.0.10](https://github.com/adaltas/node-csv/compare/csv-issues-esm@0.0.8...csv-issues-esm@0.0.10) (2023-04-16)
+
+
+### Bug Fixes
+
+* **csv-issues-esm:** illustrate cas [#381](https://github.com/adaltas/node-csv/issues/381) ([5f8fcb6](https://github.com/adaltas/node-csv/commit/5f8fcb639af87d04f96115ddc811df90f435c483))
+
+
+
+## [0.0.9](https://github.com/adaltas/node-csv/compare/csv-issues-esm@0.0.8...csv-issues-esm@0.0.9) (2023-04-16)
+
+
+### Bug Fixes
+
+* **csv-issues-esm:** illustrate cas [#381](https://github.com/adaltas/node-csv/issues/381) ([5f8fcb6](https://github.com/adaltas/node-csv/commit/5f8fcb639af87d04f96115ddc811df90f435c483))
+
+
+
 ## [0.0.8](https://github.com/adaltas/node-csv/compare/csv-issues-esm@0.0.7...csv-issues-esm@0.0.8) (2023-03-03)
 
 **Note:** Version bump only for package csv-issues-esm

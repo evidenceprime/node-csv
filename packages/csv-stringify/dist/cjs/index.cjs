@@ -475,8 +475,27 @@ const stringifier = function(options, state, info){
             }
           });
           quotedMatch = quotedMatch && quotedMatch.length > 0;
-          if (escape_formulas && ['=', '+', '-', '@', '\t', '\r'].includes(value[0])) {
-            value = `'${value}`;
+          // See https://github.com/adaltas/node-csv/pull/387
+          // More about CSV injection or formula injection, when websites embed
+          // untrusted input inside CSV files:
+          // https://owasp.org/www-community/attacks/CSV_Injection
+          // http://georgemauer.net/2017/10/07/csv-injection.html
+          // Apple Numbers unicode normalization is empirical from testing
+          if (escape_formulas) {
+            switch (value[0]) {
+            case '=':
+            case '+':
+            case '-':
+            case '@':
+            case '\t':
+            case '\r':
+            case '\uFF1D': // Unicode '='
+            case '\uFF0B': // Unicode '+'
+            case '\uFF0D': // Unicode '-'
+            case '\uFF20': // Unicode '@'
+              value = `'${value}`;
+              break;
+            }
           }
           const shouldQuote = containsQuote === true || containsdelimiter || containsRecordDelimiter || quoted || quotedString || quotedMatch;
           if(shouldQuote === true && containsEscape === true){
@@ -627,7 +646,15 @@ const stringify = function(){
       callback(err);
     });
     stringifier.on('end', function(){
-      callback(undefined, chunks.join(''));
+      try {
+        callback(undefined, chunks.join(''));
+      } catch (err) {
+        // This can happen if the `chunks` is extremely long; it may throw
+        // "Cannot create a string longer than 0x1fffffe8 characters"
+        // See [#386](https://github.com/adaltas/node-csv/pull/386)
+        callback(err);
+        return;
+      }
     });
   }
   if(data !== undefined){

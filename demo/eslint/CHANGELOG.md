@@ -3,6 +3,64 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.16](https://github.com/adaltas/node-csv/compare/csv-demo-eslint@0.1.15...csv-demo-eslint@0.1.16) (2023-08-25)
+
+
+### Bug Fixes
+
+* **csv-demo-ts-cjs-node16:** upgrade module definition after latest typescript ([87fe919](https://github.com/adaltas/node-csv/commit/87fe91996fb2a8895c252177fca4f0cb59a518f9))
+
+
+
+## [0.1.15](https://github.com/adaltas/node-csv/compare/csv-demo-eslint@0.1.14...csv-demo-eslint@0.1.15) (2023-08-24)
+
+
+### Bug Fixes
+
+* commonjs types, run tsc and lint to validate changes ([#397](https://github.com/adaltas/node-csv/issues/397)) ([e6870fe](https://github.com/adaltas/node-csv/commit/e6870fe272c119e273196522c9771d12ff8b2a35))
+
+
+
+## [0.1.14](https://github.com/adaltas/node-csv/compare/csv-demo-eslint@0.1.13...csv-demo-eslint@0.1.14) (2023-05-09)
+
+**Note:** Version bump only for package csv-demo-eslint
+
+
+
+
+
+## [0.1.13](https://github.com/adaltas/node-csv/compare/csv-demo-eslint@0.1.12...csv-demo-eslint@0.1.13) (2023-05-04)
+
+**Note:** Version bump only for package csv-demo-eslint
+
+
+
+
+
+## [0.1.12](https://github.com/adaltas/node-csv/compare/csv-demo-eslint@0.1.11...csv-demo-eslint@0.1.12) (2023-04-30)
+
+**Note:** Version bump only for package csv-demo-eslint
+
+
+
+
+
+## [0.1.11](https://github.com/adaltas/node-csv/compare/csv-demo-eslint@0.1.9...csv-demo-eslint@0.1.11) (2023-04-16)
+
+**Note:** Version bump only for package csv-demo-eslint
+
+
+
+
+
+## [0.1.10](https://github.com/adaltas/node-csv/compare/csv-demo-eslint@0.1.9...csv-demo-eslint@0.1.10) (2023-04-16)
+
+**Note:** Version bump only for package csv-demo-eslint
+
+
+
+
+
 ## [0.1.9](https://github.com/adaltas/node-csv/compare/csv-demo-eslint@0.1.8...csv-demo-eslint@0.1.9) (2023-03-03)
 
 **Note:** Version bump only for package csv-demo-eslint

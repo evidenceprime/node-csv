@@ -534,6 +534,16 @@ const normalize_options$1 = function(opts){
       ], options);
     }
   }
+  // Normalize option `comment_no_infix`
+  if(options.comment_no_infix === undefined || options.comment_no_infix === null || options.comment_no_infix === false){
+    options.comment_no_infix = false;
+  }else if(options.comment_no_infix !== true){
+    throw new CsvError$1('CSV_INVALID_OPTION_COMMENT', [
+      'Invalid option comment_no_infix:',
+      'value must be a boolean,',
+      `got ${JSON.stringify(options.comment_no_infix)}`
+    ], options);
+  }
   // Normalize option `delimiter`
   const delimiter_json = JSON.stringify(options.delimiter);
   if(!Array.isArray(options.delimiter)) options.delimiter = [options.delimiter];
@@ -895,7 +905,7 @@ const transform$1 = function(original_options = {}) {
     },
     // Central parser implementation
     parse: function(nextBuf, end, push, close){
-      const {bom, encoding, from_line, ltrim, max_record_size,raw, relax_quotes, rtrim, skip_empty_lines, to, to_line} = this.options;
+      const {bom, comment_no_infix, encoding, from_line, ltrim, max_record_size,raw, relax_quotes, rtrim, skip_empty_lines, to, to_line} = this.options;
       let {comment, escape, quote, record_delimiter} = this.options;
       const {bomSkipped, previousBuf, rawBuffer, escapeIsQuote} = this.state;
       let buf;
@@ -1094,7 +1104,7 @@ const transform$1 = function(original_options = {}) {
               continue;
             }
             const commentCount = comment === null ? 0 : this.__compareBytes(comment, buf, pos, chr);
-            if(commentCount !== 0){
+            if(commentCount !== 0 && (comment_no_infix === false || this.state.field.length === 0)){
               this.state.commenting = true;
               continue;
             }
@@ -2271,8 +2281,27 @@ const stringifier = function(options, state, info){
             }
           });
           quotedMatch = quotedMatch && quotedMatch.length > 0;
-          if (escape_formulas && ['=', '+', '-', '@', '\t', '\r'].includes(value[0])) {
-            value = `'${value}`;
+          // See https://github.com/adaltas/node-csv/pull/387
+          // More about CSV injection or formula injection, when websites embed
+          // untrusted input inside CSV files:
+          // https://owasp.org/www-community/attacks/CSV_Injection
+          // http://georgemauer.net/2017/10/07/csv-injection.html
+          // Apple Numbers unicode normalization is empirical from testing
+          if (escape_formulas) {
+            switch (value[0]) {
+            case '=':
+            case '+':
+            case '-':
+            case '@':
+            case '\t':
+            case '\r':
+            case '\uFF1D': // Unicode '='
+            case '\uFF0B': // Unicode '+'
+            case '\uFF0D': // Unicode '-'
+            case '\uFF20': // Unicode '@'
+              value = `'${value}`;
+              break;
+            }
           }
           const shouldQuote = containsQuote === true || containsdelimiter || containsRecordDelimiter || quoted || quotedString || quotedMatch;
           if(shouldQuote === true && containsEscape === true){
@@ -2423,7 +2452,15 @@ const stringify = function(){
       callback(err);
     });
     stringifier.on('end', function(){
-      callback(undefined, chunks.join(''));
+      try {
+        callback(undefined, chunks.join(''));
+      } catch (err) {
+        // This can happen if the `chunks` is extremely long; it may throw
+        // "Cannot create a string longer than 0x1fffffe8 characters"
+        // See [#386](https://github.com/adaltas/node-csv/pull/386)
+        callback(err);
+        return;
+      }
     });
   }
   if(data !== undefined){
