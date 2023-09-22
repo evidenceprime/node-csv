@@ -3,6 +3,71 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.11](https://github.com/adaltas/node-csv/compare/csv-demo-cjs@0.2.10...csv-demo-cjs@0.2.11) (2023-08-25)
+
+
+### Bug Fixes
+
+* **csv-demo-ts-cjs-node16:** upgrade module definition after latest typescript ([87fe919](https://github.com/adaltas/node-csv/commit/87fe91996fb2a8895c252177fca4f0cb59a518f9))
+
+
+
+## [0.2.10](https://github.com/adaltas/node-csv/compare/csv-demo-cjs@0.2.9...csv-demo-cjs@0.2.10) (2023-08-24)
+
+**Note:** Version bump only for package csv-demo-cjs
+
+
+
+
+
+## [0.2.9](https://github.com/adaltas/node-csv/compare/csv-demo-cjs@0.2.8...csv-demo-cjs@0.2.9) (2023-05-26)
+
+**Note:** Version bump only for package csv-demo-cjs
+
+
+
+
+
+## [0.2.8](https://github.com/adaltas/node-csv/compare/csv-demo-cjs@0.2.7...csv-demo-cjs@0.2.8) (2023-05-09)
+
+**Note:** Version bump only for package csv-demo-cjs
+
+
+
+
+
+## [0.2.7](https://github.com/adaltas/node-csv/compare/csv-demo-cjs@0.2.6...csv-demo-cjs@0.2.7) (2023-05-04)
+
+**Note:** Version bump only for package csv-demo-cjs
+
+
+
+
+
+## [0.2.6](https://github.com/adaltas/node-csv/compare/csv-demo-cjs@0.2.5...csv-demo-cjs@0.2.6) (2023-04-30)
+
+**Note:** Version bump only for package csv-demo-cjs
+
+
+
+
+
+## [0.2.5](https://github.com/adaltas/node-csv/compare/csv-demo-cjs@0.2.3...csv-demo-cjs@0.2.5) (2023-04-16)
+
+**Note:** Version bump only for package csv-demo-cjs
+
+
+
+
+
+## [0.2.4](https://github.com/adaltas/node-csv/compare/csv-demo-cjs@0.2.3...csv-demo-cjs@0.2.4) (2023-04-16)
+
+**Note:** Version bump only for package csv-demo-cjs
+
+
+
+
+
 ## [0.2.3](https://github.com/adaltas/node-csv/compare/csv-demo-cjs@0.2.2...csv-demo-cjs@0.2.3) (2023-03-03)
 
 **Note:** Version bump only for package csv-demo-cjs

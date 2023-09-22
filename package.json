@@ -1,12 +1,12 @@
 {
   "private": true,
   "devDependencies": {
-    "@commitlint/cli": "^17.2.0",
-    "@commitlint/config-conventional": "^17.2.0",
-    "@commitlint/config-lerna-scopes": "^17.2.1",
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
+    "@commitlint/config-lerna-scopes": "^17.7.0",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^8.0.2",
-    "lerna": "~6.4.0"
+    "husky": "^8.0.3",
+    "lerna": "^7.3.0"
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,8 @@
     "build": "lerna run build",
     "postinstall": "husky install",
     "publish": "lerna publish from-git --yes",
+    "lint": "lerna run lint",
+    "pretest": "npm run lint",
     "test": "lerna run test",
     "test:legacy": "lerna run test:legacy",
     "version": "lerna version"
@@ -34,5 +36,6 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
-  }
+  },
+  "version": "0.0.0"
 }

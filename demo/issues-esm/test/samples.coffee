@@ -1,7 +1,7 @@
 
-import fs from 'fs';
-import path from 'path';
-import { exec } from 'child_process';
+import fs from 'node:fs';
+import path from 'node:path';
+import { spawn } from 'node:child_process';
 import { dirname } from 'dirname-filename-esm';
 
 __dirname = dirname import.meta
@@ -17,10 +17,11 @@ describe 'Samples', ->
   .map (sample) ->
     it "Sample #{sample}", (callback) ->
       ext = /\.(\w+)?$/.exec(sample)[0]
-      bin = switch ext
+      [cmd, ...args] = switch ext
         when '.js'
-          'node'
+          ['node', path.resolve dir, sample]
         when '.ts'
-          'node --loader ts-node/esm'
-      exec "#{bin} #{path.resolve dir, sample}", (err, stdout, stderr) ->
-        callback err
+          ['node', '--loader', 'ts-node/esm', path.resolve dir, sample]
+      spawn(cmd, args)
+        .on 'close', (code) -> callback(code isnt 0 and new Error 'Failure')
+        .stdout.on 'data', (->)
